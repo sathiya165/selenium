@@ -1,0 +1,61 @@
+package vgLogin;
+
+
+	import java.time.Duration;
+	import java.util.Set;
+	import java.util.concurrent.TimeUnit;
+
+	import org.openqa.selenium.WebDriver;
+	import org.openqa.selenium.WebElement;
+	import org.openqa.selenium.firefox.FirefoxDriver;
+	import org.openqa.selenium.support.ui.WebDriverWait;
+
+	public class loginpage {
+
+		public static void main(String[] args) {
+			System.setProperty("webdriver.gecko.driver","./drivers/geckodriver.exe");
+		    FirefoxDriver driver = new FirefoxDriver();
+			driver.get("https://app.vgqa.glint.cloud-dev.microsoft/session/auth");
+			
+			driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+
+			
+			String oldwindow =driver.getWindowHandle();
+			
+			WebElement vivalink = driver.findElementByPartialLinkText("2023");
+			vivalink.click();
+			
+
+			WebElement privacy = driver.findElementByLinkText("Privacy");
+			privacy.click();
+			
+
+			WebElement accesibility = driver.findElementByLinkText("Accessibility");
+			accesibility.click();
+			
+			
+	        Set<String> handles=driver.getWindowHandles();
+	        
+			for(String newWindow : handles) {
+				
+				driver.switchTo().window(newWindow);
+			}
+			driver.close();
+			
+			driver.switchTo().window(oldwindow);
+			
+			driver.manage().timeouts().implicitlyWait(5,TimeUnit.SECONDS);
+			WebElement dropdown = driver.findElementByXPath("/html/body/glint-session-root/div/glint-session-auth/glint-session-footer/footer/glint-session-language-dropdown/glint-dropdown/div/div");
+			dropdown.click();
+			
+			
+			
+			
+			
+			
+		}
+
+	}
+
+
+
