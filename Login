@@ -1,0 +1,45 @@
+package vgLogin;
+
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+
+public class loginflow {
+	
+	public static void main(String[] args) throws InterruptedException {
+		System.setProperty("webdriver.gecko.driver","./chrome/geckodriver.exe");
+	    FirefoxDriver driver = new FirefoxDriver();
+		driver.get("https://app.vgqa.glint.cloud-dev.microsoft/session/auth");
+		
+		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+		
+		WebElement Email =driver.findElementById("email");
+		Email.sendKeys("qatester@glintinc.com");
+		WebElement Continue =driver.findElementByClassName("sessionFormFooter");
+		Continue.click();
+		WebElement client =driver.findElementById("clientUuid");
+		client.sendKeys("qa20220428");
+		WebElement Continue1 =driver.findElementByXPath("/html/body/glint-session-root/div/glint-session-client/form/section/footer/button");
+		Continue1.click();
+		WebElement password =driver.findElementById("password");
+		password.sendKeys("Dem0@pass7");
+		WebElement Continue2 =driver.findElementByXPath("/html/body/glint-session-root/div/glint-session-login/form/section/footer");
+		Continue2.click();
+		driver.manage().timeouts().implicitlyWait(10,TimeUnit.SECONDS);
+
+		WebElement Tab =driver.findElementById("tab-4");
+		Tab.click();
+		driver.manage().timeouts().implicitlyWait(5,TimeUnit.SECONDS);
+        
+		WebElement survey = driver.findElementByXPath("/html/body/glint-root/div/div/main/glint-report-landing/glint-reports/glint-panel/div/div/div/div[1]/glint-facet-list/div[2]/ul/li[1]/div/span/span");
+		survey.click();
+		Thread.sleep(3000);
+		WebElement Comment =driver.findElementByXPath("/html/body/glint-root/div/div/main/glint-report-landing/glint-reports/glint-panel/div/div/div/div[2]/div/glint-report-tile-list/ul/li[7]/button/glint-tile/div/header/div/div");
+		Comment.click();
+		
+		
+	}
+
+}
